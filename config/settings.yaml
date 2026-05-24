@@ -1,0 +1,123 @@
+# ============================================================
+# FaceAuth MVP - Configuración Central
+# ============================================================
+
+system:
+  app_name: "FaceAuth MVP"
+  version: "1.0.0"
+  debug: false
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_file: "logs/faceauth.log"
+
+camera:
+  device_id: 2              # índice de webcam (0 = primera)
+  width: 640
+  height: 480
+  fps: 30
+  buffer_size: 1            # mínimo para reducir latencia
+
+performance:
+  inference_max_width: 480  # ancho máx. para inferencia (menor = más rápido)
+  ui_emit_interval_ms: 33   # ~30 FPS de preview en pantalla
+  inference_min_interval_ms: 250  # ms entre inferencias (con rostro, CPU es lento)
+
+inference:
+  # Proveedor de ejecución ONNX: "OpenVINO", "CPU"
+  # OpenVINO acelera en Intel Arc/Iris
+  execution_provider: "CPU"
+  fallback_provider: "CPU"
+  num_threads: 4            # threads para CPU fallback
+  inter_op_threads: 2
+
+detection:
+  model: "buffalo_l"        # InsightFace model pack
+  det_size: [320, 320]      # resolución de detección (320 más rápido en CPU)
+  det_thresh: 0.50          # umbral de detección facial
+  nms_thresh: 0.40          # non-max suppression
+  max_faces: 10             # máximo rostros simultáneos
+  min_face_size: 60         # píxeles mínimos de cara
+
+recognition:
+  embedding_size: 512       # ArcFace R100 = 512 dims
+  # --- Umbrales críticos ---
+  # Distancia coseno: 0.0 = idéntico, 2.0 = opuesto
+  # Para ArcFace buffalo_l calibrado en LFW:
+  identity_threshold: 0.40  # < 0.40 = misma persona (ESTRICTO)
+  unknown_threshold: 0.55   # > 0.55 = definitivamente desconocido
+  # Zona gris [0.40-0.55] = baja confianza → ignorar
+  
+  # Número mínimo de embeddings por usuario para registro
+  min_embeddings_per_user: 5
+  max_embeddings_per_user: 20
+  
+  # Agregación: "mean" o "median" al combinar embeddings
+  aggregation: "mean"
+
+faiss:
+  index_type: "FlatIP"      # Inner Product (coseno normalizado)
+  # FlatIP = búsqueda exacta. Con 10 usuarios es instantáneo.
+  # Para escalar a 1000+ usuarios cambiar a "IVFFlat"
+  index_path: "data/embeddings/faiss.index"
+  metadata_path: "data/embeddings/metadata.pkl"
+
+anti_spoofing:
+  enabled: true
+  model_path: "models/antispoof/2.7_80x80_MiniFASNetV2.onnx"
+  model_path_alt: "models/antispoof/4_0_0_80x80_MiniFASNetV1SE.onnx"
+  input_size: [80, 80]
+  threshold: 0.85           # > 0.85 = real, < 0.85 = spoof
+  # Número de frames consecutivos reales para confirmar
+  real_frames_required: 3
+  spoof_frames_required: 2
+
+tracking:
+  enabled: true
+  # IoU threshold para asociar detecciones entre frames
+  iou_threshold: 0.45
+  # Frames sin detección antes de eliminar track
+  max_missing_frames: 15
+  # Suavizado de bounding boxes (0=sin suavizado, 1=máximo)
+  smoothing_alpha: 0.7
+  # Re-identificación: frames entre comparaciones con FAISS
+  reid_interval: 8
+
+ui:
+  window_title: "FaceAuth - Sistema de Reconocimiento Biométrico"
+  window_width: 1280
+  window_height: 800
+  theme: "dark"
+  
+  # Colores (R, G, B)
+  colors:
+    known_user: [0, 220, 100]       # verde
+    unknown: [60, 60, 60]           # gris oscuro
+    spoof: [220, 40, 40]            # rojo
+    low_confidence: [220, 160, 0]   # amarillo
+    text_bg: [10, 10, 10]
+  
+  # Overlay
+  show_confidence: true
+  show_spoof_indicator: true
+  show_fps: true
+  show_landmarks: false
+  bbox_thickness: 2
+  font_scale: 0.65
+  
+  # Panel lateral
+  sidebar_width: 300
+
+registration:
+  capture_delay_ms: 300     # ms entre capturas automáticas
+  photos_required: 8        # fotos mínimas para registro
+  photos_recommended: 15    # fotos recomendadas
+  quality_threshold: 0.6    # calidad mínima de imagen
+  # Variaciones a cubrir durante registro
+  prompts:
+    - "Mira directamente a la cámara"
+    - "Gira levemente a la izquierda"
+    - "Gira levemente a la derecha"
+    - "Inclina la cabeza hacia arriba"
+    - "Inclina la cabeza hacia abajo"
+    - "Expresión neutral"
+    - "Sonríe levemente"
+    - "Iluminación lateral (si es posible)"

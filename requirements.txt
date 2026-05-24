@@ -1,0 +1,68 @@
+# ============================================================
+# FaceAuth MVP - Dependencias
+# Windows 10/11 + Intel Arc/Iris + OpenVINO
+# Python 3.10 o 3.11 recomendado
+# ============================================================
+
+# --- Core Vision ---
+opencv-python==4.9.0.80
+numpy==1.26.4
+
+# --- Face Recognition ---
+insightface==0.7.3
+onnxruntime==1.17.3
+# Para aceleración Intel Arc/Iris descomenta la siguiente línea
+# y comenta onnxruntime de arriba:
+# onnxruntime-openvino==1.17.0
+
+# --- Vector Search ---
+faiss-cpu==1.8.0
+
+# --- Anti-Spoofing (MiniFASNet via ONNX) ---
+# El modelo se descarga con scripts/download_models.py
+
+# --- UI ---
+PyQt6==6.7.0
+PyQt6-Qt6==6.7.0
+PyQt6-sip==13.6.0
+
+# --- Utilidades ---
+pyyaml==6.0.1
+Pillow==10.3.0
+scipy==1.13.0
+scikit-learn==1.4.2
+
+# --- Logging y Config ---
+colorlog==6.8.2
+
+# --- Progreso y CLI ---
+tqdm==4.66.4
+click==8.1.7
+
+# --- Testing ---
+pytest==8.2.0
+pytest-qt==4.4.0
+
+# ============================================================
+# INSTRUCCIONES DE INSTALACIÓN
+# ============================================================
+#
+# 1. Crear entorno virtual:
+#    python -m venv venv
+#    venv\Scripts\activate          (Windows)
+#
+# 2. Instalar dependencias base:
+#    pip install -r requirements.txt
+#
+# 3. Para OpenVINO (Intel Arc/Iris - RECOMENDADO):
+#    pip uninstall onnxruntime -y
+#    pip install onnxruntime-openvino==1.17.0
+#    (Requiere Intel OpenVINO Runtime instalado en el sistema)
+#    Descarga: https://www.intel.com/content/www/us/en/developer/tools/openvino-toolkit/download.html
+#
+# 4. Descargar modelos:
+#    python scripts/download_models.py
+#
+# 5. Ejecutar:
+#    python main.py
+# ============================================================

@@ -1,0 +1,327 @@
+2026-05-23 16:01:08 | INFO     | faceauth             | ============================================================
+2026-05-23 16:01:08 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:01:08 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:01:08 | INFO     | faceauth             | ============================================================
+2026-05-23 16:01:15 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:01:15 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:01:15 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:01:15 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:01:15 | WARNING  | faceauth.detector    | OpenVINOExecutionProvider no disponible. Instala: pip install onnxruntime-openvino
+2026-05-23 16:01:15 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:01:18 | INFO     | faceauth.detector    | FaceDetector listo en 2571ms
+2026-05-23 16:01:18 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:01:18 | INFO     | faceauth.database    | Base de datos vacía. Registra usuarios para comenzar.
+2026-05-23 16:01:18 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 0
+2026-05-23 16:01:18 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:01:18 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:01:18 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:01:18 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:01:18 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:01:18 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:01:18 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:01:18 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 0
+2026-05-23 16:01:18 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:01:18 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:02:24 | INFO     | faceauth             | ============================================================
+2026-05-23 16:02:24 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:02:24 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:02:24 | INFO     | faceauth             | ============================================================
+2026-05-23 16:02:32 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:02:32 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:02:32 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:02:32 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:02:32 | WARNING  | faceauth.detector    | OpenVINOExecutionProvider no disponible. Instala: pip install onnxruntime-openvino
+2026-05-23 16:02:32 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:02:35 | INFO     | faceauth.detector    | FaceDetector listo en 3159ms
+2026-05-23 16:02:35 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:02:35 | INFO     | faceauth.database    | Base de datos vacía. Registra usuarios para comenzar.
+2026-05-23 16:02:35 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 0
+2026-05-23 16:02:35 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:02:35 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:02:35 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:02:35 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:02:35 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:02:35 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:02:35 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:02:35 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 0
+2026-05-23 16:02:35 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:02:35 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:02:36 | INFO     | faceauth.main_window | VideoWorker arrancado en QThread.
+2026-05-23 16:02:36 | INFO     | faceauth.video_worker | VideoWorker iniciando...
+2026-05-23 16:02:36 | INFO     | faceauth.camera      | Abriendo cámara (device_id=0)...
+2026-05-23 16:02:40 | INFO     | faceauth             | UI lista. Iniciando event loop.
+2026-05-23 16:02:43 | INFO     | faceauth.camera      | Cámara lista: 1280x720 @ 30fps
+2026-05-23 16:02:44 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:02:44 | INFO     | faceauth.video_worker | VideoWorker en ejecución.
+2026-05-23 16:03:33 | INFO     | faceauth.camera      | Abriendo cámara (device_id=0)...
+2026-05-23 16:03:35 | INFO     | faceauth.camera      | Cámara lista: 1280x720 @ 30fps
+2026-05-23 16:03:35 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:03:45 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 16:03:46 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 16:03:48 | ERROR    | faceauth.camera      | Cámara falló 30 veces consecutivas.
+2026-05-23 16:03:48 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 16:09:42 | INFO     | faceauth.database    | Usuario registrado: Alexander Montenegro (id=user_098e81, muestras=8, total_usuarios=1)
+2026-05-23 16:09:45 | INFO     | faceauth.main_window | Usuario registrado exitosamente.
+2026-05-23 16:18:55 | INFO     | faceauth             | ============================================================
+2026-05-23 16:18:55 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:18:55 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:18:55 | INFO     | faceauth             | ============================================================
+2026-05-23 16:18:58 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:18:58 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:18:58 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:18:58 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:18:58 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:19:01 | INFO     | faceauth.detector    | FaceDetector listo en 3115ms
+2026-05-23 16:19:01 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:19:01 | INFO     | faceauth.database    | Base de datos cargada desde disco. Usuarios: 1, Vectores FAISS: 1
+2026-05-23 16:19:01 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 1
+2026-05-23 16:19:01 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:19:01 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:19:01 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:19:01 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:19:01 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:19:01 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:19:01 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:19:01 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 1
+2026-05-23 16:19:01 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:19:01 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:19:01 | INFO     | faceauth.main_window | VideoWorker arrancado en QThread.
+2026-05-23 16:19:02 | INFO     | faceauth.video_worker | VideoWorker iniciando...
+2026-05-23 16:19:02 | INFO     | faceauth             | UI lista. Iniciando event loop.
+2026-05-23 16:19:02 | INFO     | faceauth.camera      | Abriendo cámara (device_id=0)...
+2026-05-23 16:19:03 | INFO     | faceauth.camera      | Cámara lista: 640x480 @ 30fps
+2026-05-23 16:19:04 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:19:04 | INFO     | faceauth.video_worker | VideoWorker en ejecución.
+2026-05-23 16:19:04 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:07 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:11 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:13 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:13 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:17 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:22 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:26 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:29 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:32 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:36 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:40 | ERROR    | faceauth.database    | Error en búsqueda FAISS: not enough values to unpack (expected 2, got 1)
+Traceback (most recent call last):
+  File "C:\Users\Core-i7-10maGen\Documents\Jimmy\Proyecto\faceauth\core\database.py", line 135, in search
+    distances, indices = self._index.search(emb, k=min(1, len(self._users)))
+                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Core-i7-10maGen\AppData\Local\Programs\Python\Python311\Lib\site-packages\faiss\class_wrappers.py", line 327, in replacement_search
+    n, d = x.shape
+    ^^^^
+ValueError: not enough values to unpack (expected 2, got 1)
+2026-05-23 16:19:40 | INFO     | faceauth.main_window | Cerrando FaceAuth...
+2026-05-23 16:19:40 | INFO     | faceauth.video_worker | VideoWorker detenido.
+2026-05-23 16:19:40 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 16:19:41 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 16:19:41 | INFO     | faceauth.video_worker | VideoWorker terminado.
+2026-05-23 16:19:41 | INFO     | faceauth             | FaceAuth cerrado. Exit code: 0
+2026-05-23 16:28:13 | INFO     | faceauth             | ============================================================
+2026-05-23 16:28:13 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:28:13 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:28:13 | INFO     | faceauth             | ============================================================
+2026-05-23 16:28:17 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:28:17 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:28:17 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:28:17 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:28:17 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:28:20 | INFO     | faceauth.detector    | FaceDetector listo en 2710ms
+2026-05-23 16:28:20 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:28:20 | INFO     | faceauth.database    | Base de datos cargada desde disco. Usuarios: 1, Vectores FAISS: 1
+2026-05-23 16:28:20 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 1
+2026-05-23 16:28:20 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:28:20 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:28:20 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:28:20 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:28:20 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:28:20 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:28:20 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:28:20 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 1
+2026-05-23 16:28:20 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:28:20 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:28:20 | INFO     | faceauth.main_window | VideoWorker arrancado en QThread.
+2026-05-23 16:28:20 | INFO     | faceauth.video_worker | VideoWorker iniciando...
+2026-05-23 16:28:20 | INFO     | faceauth.camera      | Abriendo cámara (device_id=0)...
+2026-05-23 16:28:21 | INFO     | faceauth             | UI lista. Iniciando event loop.
+2026-05-23 16:28:22 | INFO     | faceauth.camera      | Cámara lista: 640x480 @ 30fps
+2026-05-23 16:28:22 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:28:22 | INFO     | faceauth.video_worker | VideoWorker en ejecución.
+2026-05-23 16:30:52 | INFO     | faceauth.main_window | Cerrando FaceAuth...
+2026-05-23 16:30:52 | INFO     | faceauth.video_worker | VideoWorker detenido.
+2026-05-23 16:30:52 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 16:30:53 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 16:30:53 | INFO     | faceauth.video_worker | VideoWorker terminado.
+2026-05-23 16:30:53 | INFO     | faceauth             | FaceAuth cerrado. Exit code: 0
+2026-05-23 16:43:02 | INFO     | faceauth.main_window | Cerrando FaceAuth...
+2026-05-23 16:43:02 | INFO     | faceauth.video_worker | VideoWorker detenido.
+2026-05-23 16:43:02 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 16:43:03 | INFO     | faceauth.video_worker | VideoWorker terminado.
+2026-05-23 16:43:03 | INFO     | faceauth             | FaceAuth cerrado. Exit code: 0
+2026-05-23 16:46:49 | INFO     | faceauth             | ============================================================
+2026-05-23 16:46:49 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:46:49 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:46:49 | INFO     | faceauth             | ============================================================
+2026-05-23 16:46:53 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:46:53 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:46:53 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:46:53 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:46:53 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:46:56 | INFO     | faceauth.detector    | FaceDetector listo en 2588ms
+2026-05-23 16:46:56 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:46:56 | INFO     | faceauth.database    | Base de datos cargada desde disco. Usuarios: 1, Vectores FAISS: 1
+2026-05-23 16:46:56 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 1
+2026-05-23 16:46:56 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:46:56 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:46:56 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:46:56 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:46:56 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:46:56 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:46:56 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:46:56 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 1
+2026-05-23 16:46:56 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:46:56 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:46:56 | INFO     | faceauth.main_window | VideoWorker arrancado en QThread.
+2026-05-23 16:46:56 | INFO     | faceauth.video_worker | VideoWorker iniciando...
+2026-05-23 16:46:56 | INFO     | faceauth.camera      | Abriendo cámara (device_id=0)...
+2026-05-23 16:46:57 | INFO     | faceauth             | UI lista. Iniciando event loop.
+2026-05-23 16:46:58 | INFO     | faceauth.camera      | Cámara lista: 640x480 @ 30fps
+2026-05-23 16:46:58 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:46:58 | INFO     | faceauth.video_worker | VideoWorker en ejecución.
+2026-05-23 16:47:10 | INFO     | faceauth.main_window | Cerrando FaceAuth...
+2026-05-23 16:47:10 | INFO     | faceauth.video_worker | VideoWorker detenido.
+2026-05-23 16:47:10 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 16:47:11 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 16:47:11 | INFO     | faceauth.video_worker | VideoWorker terminado.
+2026-05-23 16:47:11 | INFO     | faceauth             | FaceAuth cerrado. Exit code: 0
+2026-05-23 16:57:59 | INFO     | faceauth             | ============================================================
+2026-05-23 16:57:59 | INFO     | faceauth             | FaceAuth MVP v1.0.0 arrancando...
+2026-05-23 16:57:59 | INFO     | faceauth             | Python: 3.11.9 (tags/v3.11.9:de54cf5, Apr  2 2024, 10:12:12) [MSC v.1938 64 bit (AMD64)]
+2026-05-23 16:57:59 | INFO     | faceauth             | ============================================================
+2026-05-23 16:58:03 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:58:03 | INFO     | faceauth.recognition_engine | Inicializando RecognitionEngine...
+2026-05-23 16:58:03 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:58:03 | INFO     | faceauth.detector    | Inicializando FaceDetector (InsightFace SCRFD + ArcFace)...
+2026-05-23 16:58:03 | INFO     | faceauth.detector    | Proveedores ONNX: [('CPUExecutionProvider', {'intra_op_num_threads': 4, 'inter_op_num_threads': 2})]
+2026-05-23 16:58:06 | INFO     | faceauth.detector    | FaceDetector listo en 2872ms
+2026-05-23 16:58:06 | INFO     | faceauth.database    | Inicializando FaceDatabase (FAISS FlatIP)...
+2026-05-23 16:58:06 | INFO     | faceauth.database    | Base de datos cargada desde disco. Usuarios: 1, Vectores FAISS: 1
+2026-05-23 16:58:06 | INFO     | faceauth.database    | FaceDatabase lista. Usuarios registrados: 1
+2026-05-23 16:58:06 | INFO     | faceauth.anti_spoof  | Inicializando AntiSpoofing (MiniFASNet)...
+2026-05-23 16:58:06 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 2.7_80x80_MiniFASNetV2.onnx
+2026-05-23 16:58:06 | WARNING  | faceauth.anti_spoof  |   ✗ Modelo no disponible: 4_0_0_80x80_MiniFASNetV1SE.onnx
+2026-05-23 16:58:06 | ERROR    | faceauth.anti_spoof  | Ningún modelo anti-spoofing disponible. Ejecuta: python scripts/download_models.py
+El sistema continuará SIN protección anti-spoofing.
+2026-05-23 16:58:06 | WARNING  | faceauth.recognition_engine | AntiSpoofing no disponible. Descarga los modelos con: python scripts/download_models.py
+2026-05-23 16:58:06 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:58:06 | INFO     | faceauth.recognition_engine | RecognitionEngine listo.
+2026-05-23 16:58:06 | INFO     | faceauth.recognition_engine |   Usuarios registrados: 1
+2026-05-23 16:58:06 | INFO     | faceauth.recognition_engine |   Anti-spoofing: ✗ (sin modelos)
+2026-05-23 16:58:06 | INFO     | faceauth.recognition_engine | ============================================================
+2026-05-23 16:58:07 | INFO     | faceauth.main_window | VideoWorker arrancado en QThread.
+2026-05-23 16:58:07 | INFO     | faceauth.video_worker | VideoWorker iniciando...
+2026-05-23 16:58:07 | INFO     | faceauth.camera      | Abriendo cámara (device_id=2)...
+2026-05-23 16:58:07 | INFO     | faceauth             | UI lista. Iniciando event loop.
+2026-05-23 16:58:08 | INFO     | faceauth.camera      | Cámara lista: 640x480 @ 30fps
+2026-05-23 16:58:08 | INFO     | faceauth.camera      | Hilo de captura iniciado.
+2026-05-23 16:58:08 | INFO     | faceauth.video_worker | VideoWorker en ejecución.
+2026-05-23 17:00:31 | INFO     | faceauth.main_window | Cerrando FaceAuth...
+2026-05-23 17:00:31 | INFO     | faceauth.video_worker | VideoWorker detenido.
+2026-05-23 17:00:31 | INFO     | faceauth.camera      | Hilo de captura terminado.
+2026-05-23 17:00:31 | INFO     | faceauth.camera      | CameraCapture detenida.
+2026-05-23 17:00:31 | INFO     | faceauth.video_worker | VideoWorker terminado.
+2026-05-23 17:00:31 | INFO     | faceauth             | FaceAuth cerrado. Exit code: 0
