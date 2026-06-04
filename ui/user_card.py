@@ -28,9 +28,11 @@ class UserCard(QWidget):
 
     Señales:
         delete_requested: emitida con el user_id cuando se pide borrar
+        add_photos_requested: emitida con el user_id para añadir más fotos
     """
 
     delete_requested = pyqtSignal(str)
+    add_photos_requested = pyqtSignal(str)
 
     def __init__(
         self,
@@ -45,13 +47,13 @@ class UserCard(QWidget):
 
     def _build_ui(self) -> None:
         layout = QHBoxLayout(self)
-        layout.setContentsMargins(8, 6, 8, 6)
-        layout.setSpacing(8)
+        layout.setContentsMargins(8, 6, 6, 6)
+        layout.setSpacing(6)
 
         # Indicador de estado (punto verde/gris)
         self._indicator = QLabel("●")
-        self._indicator.setFixedWidth(14)
-        self._indicator.setStyleSheet("color: #303040; font-size: 14px;")
+        self._indicator.setFixedWidth(12)
+        self._indicator.setStyleSheet("color: #303050; font-size: 13px;")
         layout.addWidget(self._indicator)
 
         # Info del usuario
@@ -61,28 +63,51 @@ class UserCard(QWidget):
         info_v.setSpacing(4)
 
         self._name_label = QLabel(self._user.name)
-        self._name_label.setStyleSheet("color: #c0c0d0; font-size: 12px; font-weight: bold;")
+        self._name_label.setStyleSheet("color: #c8cbe0; font-size: 12px; font-weight: bold;")
 
         self._id_label = QLabel(f"#{self._user.user_id}")
-        self._id_label.setStyleSheet("color: #404050; font-size: 10px;")
+        self._id_label.setStyleSheet("color: #4a5070; font-size: 10px;")
 
         info_v.addWidget(self._name_label)
         info_v.addWidget(self._id_label)
         info_v.addStretch()
         layout.addWidget(info_layout, stretch=1)
 
+        # Botón añadir fotos (+ pequeño)
+        self._btn_add = QPushButton("+")
+        self._btn_add.setFixedSize(22, 22)
+        self._btn_add.setToolTip("Añadir más fotos a este usuario")
+        self._btn_add.setStyleSheet("""
+            QPushButton {
+                background: transparent;
+                border: 1px solid #2e3148;
+                border-radius: 4px;
+                color: #6b7294;
+                font-size: 13px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                border-color: #00d4aa;
+                color: #00d4aa;
+                background: #00d4aa11;
+            }
+        """)
+        self._btn_add.clicked.connect(lambda: self.add_photos_requested.emit(self._user.user_id))
+        layout.addWidget(self._btn_add)
+
         # Botón eliminar (X pequeño)
         self._btn_delete = QPushButton("✕")
         self._btn_delete.setFixedSize(22, 22)
+        self._btn_delete.setToolTip("Eliminar usuario")
         self._btn_delete.setStyleSheet("""
             QPushButton {
                 background: transparent;
                 border: none;
-                color: #303040;
+                color: #303050;
                 font-size: 11px;
             }
             QPushButton:hover {
-                color: #dc4040;
+                color: #e05050;
             }
         """)
         self._btn_delete.clicked.connect(lambda: self.delete_requested.emit(self._user.user_id))
@@ -102,25 +127,26 @@ class UserCard(QWidget):
         """Estilo cuando el usuario está siendo reconocido."""
         self.setStyleSheet("""
             UserCard {
-                background-color: #001a0e;
-                border: 1px solid #00dc6e44;
-                border-radius: 6px;
+                background-color: #0a1a1a;
+                border: 1px solid #00d4aa55;
+                border-radius: 8px;
             }
         """)
-        self._indicator.setStyleSheet("color: #00dc6e; font-size: 14px;")
-        self._name_label.setStyleSheet("color: #00dc6e; font-size: 12px; font-weight: bold;")
+        self._indicator.setStyleSheet("color: #00d4aa; font-size: 13px;")
+        self._name_label.setStyleSheet("color: #00d4aa; font-size: 12px; font-weight: bold;")
 
     def _apply_inactive_style(self) -> None:
         """Estilo cuando el usuario no está en frame."""
         self.setStyleSheet("""
             UserCard {
-                background-color: #0e0e14;
-                border: 1px solid #1e1e28;
-                border-radius: 6px;
+                background-color: #11131f;
+                border: 1px solid #1e2140;
+                border-radius: 8px;
             }
             UserCard:hover {
-                border-color: #2a2a3a;
+                border-color: #2e3158;
+                background-color: #151729;
             }
         """)
-        self._indicator.setStyleSheet("color: #303040; font-size: 14px;")
-        self._name_label.setStyleSheet("color: #808090; font-size: 12px; font-weight: bold;")
+        self._indicator.setStyleSheet("color: #303050; font-size: 13px;")
+        self._name_label.setStyleSheet("color: #9094b0; font-size: 12px; font-weight: bold;")

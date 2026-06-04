@@ -10,7 +10,7 @@ system:
   log_file: "logs/faceauth.log"
 
 camera:
-  device_id: 2              # índice de webcam (0 = primera)
+  device_id: 0              # índice de webcam (0 = primera)
   width: 640
   height: 480
   fps: 30
@@ -48,7 +48,7 @@ recognition:
   
   # Número mínimo de embeddings por usuario para registro
   min_embeddings_per_user: 5
-  max_embeddings_per_user: 20
+  max_embeddings_per_user: 40
   
   # Agregación: "mean" o "median" al combinar embeddings
   aggregation: "mean"
@@ -108,8 +108,8 @@ ui:
 
 registration:
   capture_delay_ms: 300     # ms entre capturas automáticas
-  photos_required: 8        # fotos mínimas para registro
-  photos_recommended: 15    # fotos recomendadas
+  photos_required: 12       # fotos mínimas para registro
+  photos_recommended: 25    # fotos recomendadas
   quality_threshold: 0.6    # calidad mínima de imagen
   # Variaciones a cubrir durante registro
   prompts:

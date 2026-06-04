@@ -146,12 +146,12 @@ class DetectedFace:
     def display_color(self) -> tuple[int, int, int]:
         """Color BGR para bounding box."""
         if self.is_spoof:
-            return (40, 40, 220)       # Rojo
+            return (60, 60, 220)       # Rojo suave
         if self.identity_status == IdentityStatus.KNOWN:
-            return (100, 220, 0)       # Verde
+            return (150, 212, 0)       # Verde teal
         if self.identity_status == IdentityStatus.LOW_CONFIDENCE:
-            return (0, 160, 220)       # Amarillo
-        return (60, 60, 60)            # Gris oscuro (desconocido)
+            return (0, 180, 230)       # Naranja/ámbar
+        return (60, 65, 75)            # Gris oscuro (desconocido)
 
 
 @dataclass

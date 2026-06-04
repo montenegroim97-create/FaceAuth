@@ -44,6 +44,7 @@ from PyQt6.QtWidgets import (
 from config.loader import cfg, ConfigLoader
 from core.camera import CameraCapture
 from core.recognition_engine import RecognitionEngine
+from core.types import RegisteredUser
 from utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -51,7 +52,8 @@ logger = get_logger(__name__)
 
 class RegistrationDialog(QDialog):
     """
-    Diálogo modal para registrar un nuevo usuario biométrico.
+    Diálogo modal para registrar un nuevo usuario biométrico
+    o añadir más fotos a un usuario existente.
     Soporta registro por webcam y por carga de imágenes.
     """
 
@@ -59,16 +61,24 @@ class RegistrationDialog(QDialog):
         self,
         engine: RecognitionEngine,
         parent: Optional[QWidget] = None,
+        existing_user: Optional[RegisteredUser] = None,
     ) -> None:
         super().__init__(parent)
         self._engine = engine
+        self._existing_user = existing_user
         self._captured_embeddings: list[np.ndarray] = []
         self._camera: Optional[CameraCapture] = None
         self._capture_timer: Optional[QTimer] = None
         self._capturing = False
         self._photos_target = cfg.registration.photos_required
 
-        self.setWindowTitle("Registrar Nuevo Usuario")
+        if existing_user:
+            title = f"Añadir fotos - {existing_user.name}"
+            self._photos_target = max(4, cfg.registration.photos_required // 2)
+        else:
+            title = "Registrar Nuevo Usuario"
+
+        self.setWindowTitle(title)
         self.setModal(True)
         self.setMinimumSize(700, 550)
         self.resize(750, 580)
@@ -78,73 +88,84 @@ class RegistrationDialog(QDialog):
     def _apply_style(self) -> None:
         self.setStyleSheet("""
             QDialog {
-                background-color: #0e0e10;
-                color: #e0e0e0;
+                background-color: #0f1117;
+                color: #e4e6f0;
             }
             QTabWidget::pane {
-                border: 1px solid #2a2a3a;
-                background-color: #0e0e10;
+                border: 1px solid #2e3148;
+                background-color: #0f1117;
+                border-radius: 6px;
             }
             QTabBar::tab {
-                background-color: #1a1a24;
-                color: #808090;
+                background-color: #1e2030;
+                color: #8b8fa8;
                 padding: 8px 20px;
-                border: 1px solid #2a2a3a;
+                border: 1px solid #2e3148;
+                border-bottom: none;
+                border-top-left-radius: 6px;
+                border-top-right-radius: 6px;
             }
             QTabBar::tab:selected {
-                background-color: #0e0e10;
-                color: #00dc6e;
-                border-bottom-color: #0e0e10;
+                background-color: #0f1117;
+                color: #00d4aa;
+                border-bottom-color: #0f1117;
+            }
+            QTabBar::tab:hover:!selected {
+                background-color: #282b40;
             }
             QLineEdit {
-                background-color: #1a1a24;
-                border: 1px solid #3a3a4a;
-                border-radius: 4px;
-                color: #e0e0e0;
-                padding: 6px 10px;
+                background-color: #1e2030;
+                border: 1px solid #2e3148;
+                border-radius: 6px;
+                color: #e4e6f0;
+                padding: 7px 12px;
                 font-size: 13px;
             }
             QLineEdit:focus {
-                border-color: #00dc6e;
+                border-color: #00d4aa;
             }
             QPushButton {
-                background-color: #1e1e24;
-                color: #e0e0e0;
-                border: 1px solid #3a3a4a;
-                border-radius: 6px;
+                background-color: #1e2030;
+                color: #e4e6f0;
+                border: 1px solid #2e3148;
+                border-radius: 8px;
                 padding: 7px 18px;
                 font-size: 12px;
             }
-            QPushButton:hover { background-color: #2a2a34; }
+            QPushButton:hover {
+                background-color: #282b40;
+                border-color: #00d4aa;
+            }
             QPushButton#btnCapture {
-                background-color: #00dc6e22;
-                border-color: #00dc6e;
-                color: #00dc6e;
+                background-color: #00d4aa22;
+                border-color: #00d4aa;
+                color: #00d4aa;
                 font-weight: bold;
                 font-size: 13px;
             }
-            QPushButton#btnCapture:hover { background-color: #00dc6e44; }
+            QPushButton#btnCapture:hover { background-color: #00d4aa44; }
             QPushButton#btnCapture:disabled {
-                background-color: #1a2a1a;
-                color: #406040;
-                border-color: #304030;
+                background-color: #1a2a2a;
+                color: #4a8a7a;
+                border-color: #2a5a4a;
             }
             QProgressBar {
-                background-color: #1a1a24;
-                border: 1px solid #2a2a3a;
-                border-radius: 4px;
+                background-color: #1e2030;
+                border: 1px solid #2e3148;
+                border-radius: 6px;
                 text-align: center;
-                color: #e0e0e0;
-                height: 20px;
+                color: #e4e6f0;
+                height: 22px;
+                font-size: 11px;
             }
             QProgressBar::chunk {
-                background-color: #00dc6e;
-                border-radius: 3px;
+                background-color: #00d4aa;
+                border-radius: 5px;
             }
             QLabel#videoPreview {
-                background-color: #050507;
-                border: 1px solid #1a1a24;
-                border-radius: 4px;
+                background-color: #080a12;
+                border: 1px solid #1e2132;
+                border-radius: 8px;
             }
         """)
 
@@ -169,8 +190,9 @@ class RegistrationDialog(QDialog):
         self._progress_bar = QProgressBar()
         self._progress_bar.setRange(0, self._photos_target)
         self._progress_bar.setValue(0)
-        self._progress_label = QLabel(f"0 / {self._photos_target} muestras capturadas")
-        self._progress_label.setStyleSheet("color: #808090; font-size: 11px;")
+        target_text = f"{self._photos_target} muestras"
+        self._progress_label = QLabel(f"0 / {target_text} capturadas")
+        self._progress_label.setStyleSheet("color: #6b7294; font-size: 11px;")
         progress_layout.addWidget(self._progress_bar)
         progress_layout.addWidget(self._progress_label)
         layout.addLayout(progress_layout)
@@ -180,7 +202,8 @@ class RegistrationDialog(QDialog):
             QDialogButtonBox.StandardButton.Ok
             | QDialogButtonBox.StandardButton.Cancel
         )
-        buttons.button(QDialogButtonBox.StandardButton.Ok).setText("Registrar")
+        btn_ok_text = "Añadir Fotos" if self._existing_user else "Registrar"
+        buttons.button(QDialogButtonBox.StandardButton.Ok).setText(btn_ok_text)
         buttons.button(QDialogButtonBox.StandardButton.Ok).setObjectName("btnCapture")
         buttons.accepted.connect(self._on_accept)
         buttons.rejected.connect(self._on_reject)
@@ -198,13 +221,22 @@ class RegistrationDialog(QDialog):
         grid.addWidget(QLabel("Nombre completo:"), 0, 0)
         self._name_input = QLineEdit()
         self._name_input.setPlaceholderText("Ej: Juan García")
+        if self._existing_user:
+            self._name_input.setText(self._existing_user.name)
+            self._name_input.setReadOnly(True)
+            self._name_input.setStyleSheet("color: #6b7294;")
         grid.addWidget(self._name_input, 0, 1)
 
         # ID
         grid.addWidget(QLabel("ID de usuario:"), 1, 0)
         self._id_input = QLineEdit()
-        self._id_input.setPlaceholderText(f"Ej: user_{uuid.uuid4().hex[:6]}")
-        self._id_input.setText(f"user_{uuid.uuid4().hex[:6]}")
+        if self._existing_user:
+            self._id_input.setText(self._existing_user.user_id)
+            self._id_input.setReadOnly(True)
+            self._id_input.setStyleSheet("color: #6b7294;")
+        else:
+            self._id_input.setPlaceholderText(f"Ej: user_{uuid.uuid4().hex[:6]}")
+            self._id_input.setText(f"user_{uuid.uuid4().hex[:6]}")
         grid.addWidget(self._id_input, 1, 1)
 
         grid.setColumnStretch(1, 1)
@@ -236,8 +268,8 @@ class RegistrationDialog(QDialog):
         self._pose_label = QLabel("Posiciona tu rostro frente a la cámara")
         self._pose_label.setWordWrap(True)
         self._pose_label.setStyleSheet(
-            "color: #00dc6e; font-size: 12px; padding: 8px; "
-            "background: #001a0e; border-radius: 4px;"
+            "color: #00d4aa; font-size: 12px; padding: 8px; "
+            "background: #001a1a; border-radius: 6px;"
         )
         right.addWidget(self._pose_label)
 
@@ -248,13 +280,14 @@ class RegistrationDialog(QDialog):
         right.addWidget(self._btn_capture)
 
         # Info
+        extra = " adicionales" if self._existing_user else ""
         info = QLabel(
-            f"Se capturarán {self._photos_target} fotos automáticamente.\n"
+            f"Se capturarán {self._photos_target} fotos{extra} automáticamente.\n"
             "Mueve levemente la cabeza durante la captura\n"
             "para cubrir distintos ángulos."
         )
         info.setWordWrap(True)
-        info.setStyleSheet("color: #505060; font-size: 10px;")
+        info.setStyleSheet("color: #6b7294; font-size: 10px;")
         right.addWidget(info)
 
         right.addStretch()
@@ -275,7 +308,7 @@ class RegistrationDialog(QDialog):
             "Las imágenes deben mostrar el rostro claramente con buena iluminación."
         )
         info.setWordWrap(True)
-        info.setStyleSheet("color: #707080; font-size: 11px;")
+        info.setStyleSheet("color: #6b7294; font-size: 11px;")
         layout.addWidget(info)
 
         # Botón seleccionar
@@ -285,7 +318,7 @@ class RegistrationDialog(QDialog):
 
         # Preview de imágenes seleccionadas
         self._images_info_label = QLabel("Ninguna imagen seleccionada")
-        self._images_info_label.setStyleSheet("color: #505060; font-size: 11px;")
+        self._images_info_label.setStyleSheet("color: #6b7294; font-size: 11px;")
         self._images_info_label.setWordWrap(True)
         layout.addWidget(self._images_info_label)
 
@@ -501,24 +534,36 @@ class RegistrationDialog(QDialog):
             )
             return
 
-        # Registrar
-        success = self._engine.register_user(
-            user_id=user_id,
-            name=name,
-            embeddings=self._captured_embeddings,
-        )
+        # Registrar o añadir fotos
+        if self._existing_user:
+            success = self._engine.append_user_embeddings(
+                user_id=user_id,
+                embeddings=self._captured_embeddings,
+            )
+            msg_title = "Fotos añadidas"
+            msg_body = (
+                f"Se añadieron {len(self._captured_embeddings)} muestras a '{name}'.\n"
+                f"Total: {self._existing_user.num_samples + len(self._captured_embeddings)} muestras."
+            )
+        else:
+            success = self._engine.register_user(
+                user_id=user_id,
+                name=name,
+                embeddings=self._captured_embeddings,
+            )
+            msg_title = "Éxito"
+            msg_body = (
+                f"Usuario '{name}' registrado correctamente.\n"
+                f"Muestras: {len(self._captured_embeddings)}"
+            )
 
         if success:
-            QMessageBox.information(
-                self, "Éxito",
-                f"Usuario '{name}' registrado correctamente.\n"
-                f"Muestras: {len(self._captured_embeddings)}",
-            )
+            QMessageBox.information(self, msg_title, msg_body)
             self.accept()
         else:
             QMessageBox.critical(
                 self, "Error",
-                "No se pudo registrar el usuario. Revisa los logs.",
+                "No se pudo completar la operación. Revisa los logs.",
             )
 
     def _on_reject(self) -> None:

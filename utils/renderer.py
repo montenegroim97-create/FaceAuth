@@ -210,10 +210,10 @@ class FrameRenderer:
             color = (100, 100, 100)
         elif face.spoof_status == SpoofStatus.REAL:
             icon = "✓"
-            color = (80, 220, 80)
+            color = (100, 212, 0)
         elif face.spoof_status == SpoofStatus.SPOOF:
             icon = "✗"
-            color = (40, 40, 220)
+            color = (60, 60, 220)
         else:
             return
 
@@ -272,10 +272,16 @@ class FrameRenderer:
 
         for i, line in enumerate(lines):
             y = 20 + i * 18
+            # Fondo semi-transparente para el HUD
+            cv2.putText(
+                frame, line,
+                (11, y + 1),
+                _FONT_SMALL, 1.1, (10, 10, 10), 2, cv2.LINE_AA,
+            )
             cv2.putText(
                 frame, line,
                 (10, y),
-                _FONT_SMALL, 1.1, (200, 200, 200), 1, cv2.LINE_AA,
+                _FONT_SMALL, 1.1, (180, 230, 255), 1, cv2.LINE_AA,
             )
 
     def render_no_signal(self, width: int = 640, height: int = 480) -> np.ndarray:

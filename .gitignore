@@ -1,2 +1,30 @@
-*.onnx
+# Virtual environment
+venv/
+.python-version
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+logs/
+*.log
+
+# Data / embeddings
+data/embeddings/
+
+# Models (onnx, etc)
 models/
+*.onnx
+
+# Config cache
+config/__pycache__/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db

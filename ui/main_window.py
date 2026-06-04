@@ -75,45 +75,52 @@ class MainWindow(QMainWindow):
         self._apply_dark_theme()
 
     def _apply_dark_theme(self) -> None:
-        """Aplica stylesheet oscuro a la aplicación."""
+        """Aplica stylesheet moderno a la aplicación."""
         self.setStyleSheet("""
-            QMainWindow, QWidget {
-                background-color: #0e0e10;
-                color: #e0e0e0;
+            QMainWindow {
+                background-color: #0f1117;
+            }
+            QWidget {
+                background-color: #0f1117;
+                color: #e4e6f0;
             }
             QPushButton {
-                background-color: #1e1e24;
-                color: #e0e0e0;
-                border: 1px solid #3a3a4a;
-                border-radius: 6px;
-                padding: 8px 16px;
+                background-color: #1e2030;
+                color: #c8cbe0;
+                border: 1px solid #2e3148;
+                border-radius: 8px;
+                padding: 8px 18px;
                 font-size: 13px;
             }
             QPushButton:hover {
-                background-color: #2a2a34;
-                border-color: #00dc6e;
+                background-color: #282b40;
+                border-color: #00d4aa;
+                color: #e4e6f0;
             }
             QPushButton:pressed {
-                background-color: #00dc6e;
-                color: #000000;
+                background-color: #00d4aa;
+                color: #0f1117;
+                border-color: #00d4aa;
             }
             QPushButton#btnRegister {
-                background-color: #00dc6e22;
-                border-color: #00dc6e;
-                color: #00dc6e;
+                background-color: #00d4aa22;
+                border-color: #00d4aa;
+                color: #00d4aa;
                 font-weight: bold;
+                font-size: 14px;
             }
             QPushButton#btnRegister:hover {
-                background-color: #00dc6e44;
+                background-color: #00d4aa44;
+                color: #00ffcc;
             }
             QLabel#videoLabel {
-                background-color: #050507;
-                border: 1px solid #1a1a24;
-                border-radius: 4px;
+                background-color: #080a12;
+                border: 1px solid #1e2132;
+                border-radius: 8px;
             }
             QLabel#titleLabel {
-                color: #00dc6e;
-                font-size: 15px;
+                color: #00d4aa;
+                font-size: 16px;
                 font-weight: bold;
                 padding: 8px 0px;
             }
@@ -125,9 +132,10 @@ class MainWindow(QMainWindow):
                 background-color: transparent;
             }
             QStatusBar {
-                background-color: #0a0a0c;
-                color: #606070;
+                background-color: #0a0c14;
+                color: #6b7294;
                 font-size: 11px;
+                border-top: 1px solid #1e2132;
             }
         """)
 
@@ -185,8 +193,8 @@ class MainWindow(QMainWindow):
         sidebar.setFixedWidth(cfg.ui.sidebar_width)
         sidebar.setStyleSheet("""
             QWidget {
-                background-color: #0a0a0e;
-                border-left: 1px solid #1a1a24;
+                background-color: #0c0e1a;
+                border-left: 1px solid #1e2140;
             }
         """)
 
@@ -202,7 +210,7 @@ class MainWindow(QMainWindow):
 
         # Subtítulo
         subtitle = QLabel("Sistema Biométrico")
-        subtitle.setStyleSheet("color: #505060; font-size: 11px;")
+        subtitle.setStyleSheet("color: #6b7294; font-size: 11px;")
         subtitle.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(subtitle)
 
@@ -211,7 +219,7 @@ class MainWindow(QMainWindow):
 
         # Sección usuarios registrados
         users_label = QLabel("USUARIOS REGISTRADOS")
-        users_label.setStyleSheet("color: #606070; font-size: 10px; font-weight: bold;")
+        users_label.setStyleSheet("color: #6b7294; font-size: 10px; font-weight: bold; letter-spacing: 1px;")
         layout.addWidget(users_label)
 
         # Scroll area para tarjetas de usuarios
@@ -241,7 +249,7 @@ class MainWindow(QMainWindow):
 
         # Métricas
         self._metrics_label = QLabel("FPS: --  |  Latencia: --ms")
-        self._metrics_label.setStyleSheet("color: #404050; font-size: 10px;")
+        self._metrics_label.setStyleSheet("color: #6b7294; font-size: 10px;")
         self._metrics_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
         layout.addWidget(self._metrics_label)
 
@@ -252,7 +260,7 @@ class MainWindow(QMainWindow):
         """Línea separadora horizontal."""
         sep = QWidget()
         sep.setFixedHeight(1)
-        sep.setStyleSheet("background-color: #1e1e28;")
+        sep.setStyleSheet("background-color: #1e2140;")
         return sep
 
     # ──────────────────────────────────────────────────────────
@@ -316,6 +324,26 @@ class MainWindow(QMainWindow):
     def _on_worker_error(self, error: str) -> None:
         logger.error(f"Error en VideoWorker: {error}")
         self._status_bar.showMessage(f"Error: {error}")
+
+    def _on_add_photos(self, user_id: str) -> None:
+        """Abre diálogo para añadir más fotos a un usuario existente."""
+        user = self._engine.database.get_user(user_id)
+        if user is None:
+            return
+
+        self._worker.suspend_camera()
+        try:
+            dialog = RegistrationDialog(
+                self._engine,
+                parent=self,
+                existing_user=user,
+            )
+            if dialog.exec():
+                self._refresh_user_list()
+                logger.info(f"Fotos añadidas para: {user.name}")
+        finally:
+            self._worker.resume_camera()
+            self._show_placeholder("Reconectando cámara...")
 
     def _open_registration(self) -> None:
         """Abre el diálogo de registro de nuevos usuarios."""
@@ -381,7 +409,7 @@ class MainWindow(QMainWindow):
 
         if not users:
             empty_label = QLabel("No hay usuarios registrados.\nUsa el botón de abajo.")
-            empty_label.setStyleSheet("color: #404050; font-size: 11px; padding: 20px;")
+            empty_label.setStyleSheet("color: #6b7294; font-size: 11px; padding: 20px;")
             empty_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
             empty_label.setWordWrap(True)
             self._users_layout.insertWidget(0, empty_label)
@@ -390,6 +418,7 @@ class MainWindow(QMainWindow):
         for uid, user in users.items():
             card = UserCard(user, parent=self._users_container)
             card.delete_requested.connect(self._on_delete_user)
+            card.add_photos_requested.connect(self._on_add_photos)
             self._user_cards[uid] = card
             # Insertar antes del stretch
             idx = self._users_layout.count() - 1

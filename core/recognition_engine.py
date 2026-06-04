@@ -261,6 +261,14 @@ class RecognitionEngine:
         """Elimina un usuario de la base de datos."""
         return self._database.remove_user(user_id)
 
+    def append_user_embeddings(
+        self,
+        user_id: str,
+        embeddings: list[np.ndarray],
+    ) -> bool:
+        """Añade más embeddings a un usuario existente."""
+        return self._database.append_embeddings(user_id, embeddings)
+
     def extract_embedding(self, frame: np.ndarray) -> Optional[np.ndarray]:
         """
         Extrae el embedding ArcFace del rostro más prominente en un frame.

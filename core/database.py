@@ -264,6 +264,56 @@ class FaceDatabase:
             logger.error(f"Error registrando usuario {user_id}: {e}", exc_info=True)
             return False
 
+    def append_embeddings(self, user_id: str, new_embeddings: list[np.ndarray]) -> bool:
+        """
+        Añade más embeddings a un usuario existente usando promedio ponderado.
+        No requiere almacenar todos los embeddings individuales.
+        """
+        if not self._initialized:
+            logger.error("Base de datos no inicializada.")
+            return False
+
+        user = self._users.get(user_id)
+        if user is None:
+            logger.warning(f"Usuario no encontrado: {user_id}")
+            return False
+
+        try:
+            old_count = user.num_samples
+            old_emb = user.embedding
+
+            # Normalizar y promediar nuevos embeddings
+            stacked = np.stack([self._normalize(e) for e in new_embeddings], axis=0)
+            new_mean = np.mean(stacked, axis=0)
+            new_mean = self._normalize(new_mean)
+
+            # Promedio ponderado
+            total = old_count + len(new_embeddings)
+            updated_emb = (old_emb * old_count + new_mean * len(new_embeddings)) / total
+            updated_emb = self._normalize(updated_emb)
+
+            # Actualizar índice FAISS
+            self._remove_user_from_index(user_id)
+            self._index.add(updated_emb.reshape(1, -1).astype(np.float32))
+            self._idx_to_user.append(user_id)
+
+            # Actualizar objeto de usuario
+            user.embedding = updated_emb
+            user.num_samples = total
+            user.updated_at = datetime.now().isoformat()
+
+            self.save()
+
+            logger.info(
+                f"Embeddings añadidos para {user.name} (id={user_id}): "
+                f"{old_count} → {total} muestras"
+            )
+            return True
+
+        except Exception as e:
+            logger.error(f"Error añadiendo embeddings a {user_id}: {e}", exc_info=True)
+            return False
+
     def remove_user(self, user_id: str) -> bool:
         """
         Elimina un usuario de la base de datos.
