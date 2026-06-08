@@ -88,83 +88,83 @@ class RegistrationDialog(QDialog):
     def _apply_style(self) -> None:
         self.setStyleSheet("""
             QDialog {
-                background-color: #0f1117;
-                color: #e4e6f0;
+                background-color: #f5f6fa;
+                color: #2d3436;
             }
             QTabWidget::pane {
-                border: 1px solid #2e3148;
-                background-color: #0f1117;
+                border: 1px solid #dcdde1;
+                background-color: #ffffff;
                 border-radius: 6px;
             }
             QTabBar::tab {
-                background-color: #1e2030;
-                color: #8b8fa8;
+                background-color: #eef0f5;
+                color: #636e72;
                 padding: 8px 20px;
-                border: 1px solid #2e3148;
+                border: 1px solid #dcdde1;
                 border-bottom: none;
                 border-top-left-radius: 6px;
                 border-top-right-radius: 6px;
             }
             QTabBar::tab:selected {
-                background-color: #0f1117;
-                color: #00d4aa;
-                border-bottom-color: #0f1117;
+                background-color: #ffffff;
+                color: #00b894;
+                border-bottom-color: #ffffff;
             }
             QTabBar::tab:hover:!selected {
-                background-color: #282b40;
+                background-color: #e0e2e8;
             }
             QLineEdit {
-                background-color: #1e2030;
-                border: 1px solid #2e3148;
+                background-color: #ffffff;
+                border: 1px solid #dcdde1;
                 border-radius: 6px;
-                color: #e4e6f0;
+                color: #2d3436;
                 padding: 7px 12px;
                 font-size: 13px;
             }
             QLineEdit:focus {
-                border-color: #00d4aa;
+                border-color: #00b894;
             }
             QPushButton {
-                background-color: #1e2030;
-                color: #e4e6f0;
-                border: 1px solid #2e3148;
+                background-color: #ffffff;
+                color: #2d3436;
+                border: 1px solid #dcdde1;
                 border-radius: 8px;
                 padding: 7px 18px;
                 font-size: 12px;
             }
             QPushButton:hover {
-                background-color: #282b40;
-                border-color: #00d4aa;
+                background-color: #e8e8e8;
+                border-color: #00b894;
             }
             QPushButton#btnCapture {
-                background-color: #00d4aa22;
-                border-color: #00d4aa;
-                color: #00d4aa;
+                background-color: #00b89422;
+                border-color: #00b894;
+                color: #00b894;
                 font-weight: bold;
                 font-size: 13px;
             }
-            QPushButton#btnCapture:hover { background-color: #00d4aa44; }
+            QPushButton#btnCapture:hover { background-color: #00b89444; }
             QPushButton#btnCapture:disabled {
-                background-color: #1a2a2a;
-                color: #4a8a7a;
-                border-color: #2a5a4a;
+                background-color: #e8f8f5;
+                color: #8ac4b0;
+                border-color: #8ac4b0;
             }
             QProgressBar {
-                background-color: #1e2030;
-                border: 1px solid #2e3148;
+                background-color: #eef0f5;
+                border: 1px solid #dcdde1;
                 border-radius: 6px;
                 text-align: center;
-                color: #e4e6f0;
+                color: #2d3436;
                 height: 22px;
                 font-size: 11px;
             }
             QProgressBar::chunk {
-                background-color: #00d4aa;
+                background-color: #00b894;
                 border-radius: 5px;
             }
             QLabel#videoPreview {
-                background-color: #080a12;
-                border: 1px solid #1e2132;
+                background-color: #ffffff;
+                border: 1px solid #dcdde1;
                 border-radius: 8px;
             }
         """)
@@ -192,7 +192,7 @@ class RegistrationDialog(QDialog):
         self._progress_bar.setValue(0)
         target_text = f"{self._photos_target} muestras"
         self._progress_label = QLabel(f"0 / {target_text} capturadas")
-        self._progress_label.setStyleSheet("color: #6b7294; font-size: 11px;")
+        self._progress_label.setStyleSheet("color: #636e72; font-size: 11px;")
         progress_layout.addWidget(self._progress_bar)
         progress_layout.addWidget(self._progress_label)
         layout.addLayout(progress_layout)
@@ -224,7 +224,7 @@ class RegistrationDialog(QDialog):
         if self._existing_user:
             self._name_input.setText(self._existing_user.name)
             self._name_input.setReadOnly(True)
-            self._name_input.setStyleSheet("color: #6b7294;")
+            self._name_input.setStyleSheet("color: #636e72;")
         grid.addWidget(self._name_input, 0, 1)
 
         # ID
@@ -233,7 +233,7 @@ class RegistrationDialog(QDialog):
         if self._existing_user:
             self._id_input.setText(self._existing_user.user_id)
             self._id_input.setReadOnly(True)
-            self._id_input.setStyleSheet("color: #6b7294;")
+            self._id_input.setStyleSheet("color: #636e72;")
         else:
             self._id_input.setPlaceholderText(f"Ej: user_{uuid.uuid4().hex[:6]}")
             self._id_input.setText(f"user_{uuid.uuid4().hex[:6]}")
@@ -268,8 +268,8 @@ class RegistrationDialog(QDialog):
         self._pose_label = QLabel("Posiciona tu rostro frente a la cámara")
         self._pose_label.setWordWrap(True)
         self._pose_label.setStyleSheet(
-            "color: #00d4aa; font-size: 12px; padding: 8px; "
-            "background: #001a1a; border-radius: 6px;"
+            "color: #00b894; font-size: 12px; padding: 8px; "
+            "background: #e8f8f5; border-radius: 6px;"
         )
         right.addWidget(self._pose_label)
 
@@ -287,7 +287,7 @@ class RegistrationDialog(QDialog):
             "para cubrir distintos ángulos."
         )
         info.setWordWrap(True)
-        info.setStyleSheet("color: #6b7294; font-size: 10px;")
+        info.setStyleSheet("color: #636e72; font-size: 10px;")
         right.addWidget(info)
 
         right.addStretch()
@@ -308,7 +308,7 @@ class RegistrationDialog(QDialog):
             "Las imágenes deben mostrar el rostro claramente con buena iluminación."
         )
         info.setWordWrap(True)
-        info.setStyleSheet("color: #6b7294; font-size: 11px;")
+        info.setStyleSheet("color: #636e72; font-size: 11px;")
         layout.addWidget(info)
 
         # Botón seleccionar
@@ -318,7 +318,7 @@ class RegistrationDialog(QDialog):
 
         # Preview de imágenes seleccionadas
         self._images_info_label = QLabel("Ninguna imagen seleccionada")
-        self._images_info_label.setStyleSheet("color: #6b7294; font-size: 11px;")
+        self._images_info_label.setStyleSheet("color: #636e72; font-size: 11px;")
         self._images_info_label.setWordWrap(True)
         layout.addWidget(self._images_info_label)
 
@@ -483,7 +483,7 @@ class RegistrationDialog(QDialog):
             lbl = QLabel()
             lbl.setPixmap(QPixmap.fromImage(qi))
             lbl.setFixedSize(64, 64)
-            lbl.setStyleSheet("border: 1px solid #2a2a3a; border-radius: 3px;")
+            lbl.setStyleSheet("border: 1px solid #dcdde1; border-radius: 3px;")
             self._thumbnails_layout.addWidget(lbl, i // cols, i % cols)
 
     # ──────────────────────────────────────────────────────────

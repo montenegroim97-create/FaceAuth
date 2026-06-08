@@ -85,7 +85,7 @@ ui:
   window_title: "FaceAuth - Sistema de Reconocimiento Biométrico"
   window_width: 1280
   window_height: 800
-  theme: "dark"
+  theme: "light"
   
   # Colores (R, G, B)
   colors:
@@ -96,7 +96,7 @@ ui:
     text_bg: [10, 10, 10]
   
   # Overlay
-  show_confidence: true
+  show_confidence: false
   show_spoof_indicator: true
   show_fps: true
   show_landmarks: false

@@ -74,16 +74,18 @@ class FrameRenderer:
         color_bgr = face.display_color
 
         # ── Bounding box ──────────────────────────────────────
-        # Solo dibujar si no es desconocido (ignorar desconocidos)
         if face.identity_status == IdentityStatus.UNKNOWN:
-            # Desconocidos: solo un bbox gris muy tenue
             cv2.rectangle(
                 frame,
                 (bbox.x1, bbox.y1),
                 (bbox.x2, bbox.y2),
-                (50, 50, 50),
-                1,
+                color_bgr,
+                self._bbox_thickness,
             )
+
+            label = face.display_label
+            if label:
+                self._draw_label(frame, bbox, label, (0, 0, 0), face)
             return
 
         # Rostros conocidos / spoof / low confidence: bbox completo
@@ -95,7 +97,7 @@ class FrameRenderer:
             self._bbox_thickness,
         )
 
-        # Esquinas decorativas (estilo cyberpunk)
+        # Esquinas decorativas
         self._draw_corner_marks(frame, bbox, color_bgr)
 
         # ── Etiqueta superior ────────────────────────────────
@@ -149,8 +151,12 @@ class FrameRenderer:
 
         if bg_x2 > bg_x1 and bg_y2 > bg_y1:
             overlay = frame.copy()
-            cv2.rectangle(overlay, (bg_x1, bg_y1), (bg_x2, bg_y2), (10, 10, 10), -1)
-            cv2.addWeighted(overlay, 0.7, frame, 0.3, 0, frame)
+            if face.identity_status == IdentityStatus.UNKNOWN:
+                cv2.rectangle(overlay, (bg_x1, bg_y1), (bg_x2, bg_y2), (255, 255, 255), -1)
+                cv2.addWeighted(overlay, 0.85, frame, 0.15, 0, frame)
+            else:
+                cv2.rectangle(overlay, (bg_x1, bg_y1), (bg_x2, bg_y2), (10, 10, 10), -1)
+                cv2.addWeighted(overlay, 0.7, frame, 0.3, 0, frame)
 
         # Texto
         cv2.putText(

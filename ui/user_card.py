@@ -53,7 +53,7 @@ class UserCard(QWidget):
         # Indicador de estado (punto verde/gris)
         self._indicator = QLabel("●")
         self._indicator.setFixedWidth(12)
-        self._indicator.setStyleSheet("color: #303050; font-size: 13px;")
+        self._indicator.setStyleSheet("color: #d0d0d0; font-size: 13px;")
         layout.addWidget(self._indicator)
 
         # Info del usuario
@@ -63,10 +63,10 @@ class UserCard(QWidget):
         info_v.setSpacing(4)
 
         self._name_label = QLabel(self._user.name)
-        self._name_label.setStyleSheet("color: #c8cbe0; font-size: 12px; font-weight: bold;")
+        self._name_label.setStyleSheet("color: #2d3436; font-size: 12px; font-weight: bold;")
 
         self._id_label = QLabel(f"#{self._user.user_id}")
-        self._id_label.setStyleSheet("color: #4a5070; font-size: 10px;")
+        self._id_label.setStyleSheet("color: #999999; font-size: 10px;")
 
         info_v.addWidget(self._name_label)
         info_v.addWidget(self._id_label)
@@ -80,16 +80,16 @@ class UserCard(QWidget):
         self._btn_add.setStyleSheet("""
             QPushButton {
                 background: transparent;
-                border: 1px solid #2e3148;
+                border: 1px solid #dcdde1;
                 border-radius: 4px;
-                color: #6b7294;
+                color: #636e72;
                 font-size: 13px;
                 font-weight: bold;
             }
             QPushButton:hover {
-                border-color: #00d4aa;
-                color: #00d4aa;
-                background: #00d4aa11;
+                border-color: #00b894;
+                color: #00b894;
+                background: #00b89411;
             }
         """)
         self._btn_add.clicked.connect(lambda: self.add_photos_requested.emit(self._user.user_id))
@@ -103,7 +103,7 @@ class UserCard(QWidget):
             QPushButton {
                 background: transparent;
                 border: none;
-                color: #303050;
+                color: #d0d0d0;
                 font-size: 11px;
             }
             QPushButton:hover {
@@ -127,26 +127,26 @@ class UserCard(QWidget):
         """Estilo cuando el usuario está siendo reconocido."""
         self.setStyleSheet("""
             UserCard {
-                background-color: #0a1a1a;
-                border: 1px solid #00d4aa55;
+                background-color: #e8f8f5;
+                border: 1px solid #00b894;
                 border-radius: 8px;
             }
         """)
-        self._indicator.setStyleSheet("color: #00d4aa; font-size: 13px;")
-        self._name_label.setStyleSheet("color: #00d4aa; font-size: 12px; font-weight: bold;")
+        self._indicator.setStyleSheet("color: #00b894; font-size: 13px;")
+        self._name_label.setStyleSheet("color: #00b894; font-size: 12px; font-weight: bold;")
 
     def _apply_inactive_style(self) -> None:
         """Estilo cuando el usuario no está en frame."""
         self.setStyleSheet("""
             UserCard {
-                background-color: #11131f;
-                border: 1px solid #1e2140;
+                background-color: #ffffff;
+                border: 1px solid #e0e0e0;
                 border-radius: 8px;
             }
             UserCard:hover {
-                border-color: #2e3158;
-                background-color: #151729;
+                border-color: #b0b0b0;
+                background-color: #fafafa;
             }
         """)
-        self._indicator.setStyleSheet("color: #303050; font-size: 13px;")
-        self._name_label.setStyleSheet("color: #9094b0; font-size: 12px; font-weight: bold;")
+        self._indicator.setStyleSheet("color: #d0d0d0; font-size: 13px;")
+        self._name_label.setStyleSheet("color: #636e72; font-size: 12px; font-weight: bold;")

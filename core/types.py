@@ -136,11 +136,12 @@ class DetectedFace:
         if self.is_spoof:
             return "⚠ SPOOF"
         if self.identity_status == IdentityStatus.KNOWN:
-            pct = int(self.identity_confidence * 100)
-            return f"{self.user_name} ({pct}%)"
+            return f"{self.user_name}"
         if self.identity_status == IdentityStatus.LOW_CONFIDENCE:
             return "..."
-        return ""  # Desconocidos: sin etiqueta (ignorar visualmente)
+        if self.identity_status == IdentityStatus.UNKNOWN:
+            return "No registrado"
+        return ""
 
     @property
     def display_color(self) -> tuple[int, int, int]:
@@ -151,7 +152,9 @@ class DetectedFace:
             return (150, 212, 0)       # Verde teal
         if self.identity_status == IdentityStatus.LOW_CONFIDENCE:
             return (0, 180, 230)       # Naranja/ámbar
-        return (60, 65, 75)            # Gris oscuro (desconocido)
+        if self.identity_status == IdentityStatus.UNKNOWN:
+            return (255, 255, 255)     # Blanco (desconocido)
+        return (60, 65, 75)
 
 
 @dataclass
